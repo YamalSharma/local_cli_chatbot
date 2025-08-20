@@ -1,60 +1,56 @@
-echo "# Local CLI Chatbot — SmolLM-360M-Instruct
+# Local CLI Chatbot — SmolLM-360M-Instruct
 
-This project is a simple, lightweight command-line chatbot built with Hugging Face’s SmolLM-360M-Instruct model. It maintains conversation context using a sliding window memory buffer to deliver coherent multi-turn conversations.
+A lightweight command-line chatbot built with **Hugging Face’s SmolLM-360M-Instruct** model.  
+It maintains a sliding memory buffer to deliver coherent multi-turn conversations in a minimal setup.
 
 ---
 
 ## Features
 
-- Loads and runs the small SmolLM-360M-Instruct language model locally
-- Maintains short-term conversation history (last 3 turns) for context
-- Robust CLI interface accepting continuous user input
-- Gracefully terminates on /exit command
-- Modular Python codebase for easy maintenance and extension
+- Runs entirely **locally** using a small instruction-tuned model  
+- **Context-aware** responses with sliding window memory (last 3 turns)  
+- **Simple CLI interface** for continuous chatting  
+- Graceful shutdown using `/exit` command  
+- **Modular codebase** for easy extension and maintenance  
 
 ---
 
-## Setup Instructions
+## Installation
 
-1. Ensure you have **Python 3.8+** installed on your system.
+### Requirements
+- Python **3.8+**
+- `torch`
+- `transformers`
 
-2. Clone or download this project folder.
-
-3. Install required dependencies via pip:
-
-   \`\`\`
-   pip install -r requirements.txt
-   \`\`\`
-
-   The main dependencies are:
-   - transformers (Hugging Face Transformers library)
-   - torch (PyTorch)
-
-4. The first run will download the SmolLM-360M-Instruct model (~small size) from Hugging Face Hub, so ensure an internet connection on the initial launch.
+### Steps
+1. Clone or download this repository.  
+2. Install dependencies:
+   ```bash
+   pip install transformers torch
+   ```
+3. On first run, the model (~360M) will be downloaded automatically from Hugging Face Hub.
 
 ---
 
-## How to Run
+## Usage
 
-Navigate to the project folder in your terminal or command prompt and run:
+Navigate to the project folder and run:
 
-\`\`\`
+```bash
 python interface.py
-\`\`\`
+```
 
-You will see the chatbot greeting prompt. Start typing your messages and press Enter to get the bot's response.
-
-To exit the chatbot at any time, type:
-
-\`\`\`
+- Start typing messages to chat with the bot.  
+- To exit:
+```bash
 /exit
-\`\`\`
+```
 
 ---
 
-## Sample Interaction
+## Example Conversation
 
-\`\`\`
+```
 Bot: Hello! How can I help you today?
 User: What is the capital of France?
 Bot: Paris
@@ -64,49 +60,34 @@ User: Who is the president of the United States?
 Bot: The president of the United States is Joe Biden.
 User: /exit
 Exiting chatbot. Goodbye!
-\`\`\`
+```
 
 ---
 
 ## Project Structure
 
-- model_loader.py  
-  Loads the SmolLM-360M-Instruct model and tokenizer with Hugging Face pipeline for text generation.
-
-- chat_memory.py  
-  Implements a sliding window buffer maintaining the last 3 user-bot exchanges to supply context for multi-turn conversations.
-
-- interface.py  
-  Main command-line interface script. Manages the input-output loop, constructs prompts, handles model inference, applies output cleaning, and maintains chat memory.
-
-- requirements.txt  
-  Lists Python dependencies: transformers and torch.
+```
+├── model_loader.py    # Loads model & tokenizer with Hugging Face pipeline
+├── chat_memory.py     # Sliding window buffer (last 3 exchanges)
+├── interface.py       # Main CLI loop, handles prompts & responses
+```
 
 ---
 
-## Notes
+## Technical Notes
 
-- The chatbot uses a sliding window of the last 3 conversation turns to maintain coherence.
-- Output cleaning in interface.py removes unwanted trailing content (e.g., repeated prompts, tutorial steps) for smoother conversation.
-- Model parameters like max_new_tokens=120, temperature=0.7, and top_p=0.9 are set to balance coherence and creativity.
-- The project runs on CPU by default but can leverage GPUs if available.
+- **Memory**: Sliding window of last 3 exchanges for contextual answers  
+- **Output cleaning**: Removes redundant trailing content for smooth responses  
+- **Model parameters**:  
+  - `max_new_tokens=120`  
+  - `temperature=0.7`  
+  - `top_p=0.9`  
 
----
-
-## Optional Improvements
-
-- Fine-tune the model or switch to instruction-tuned variants for better conversational accuracy.
-- Enhance prompt formatting and add a system prompt for more specific responses.
-- Build a richer interface (e.g., GUI, web app) or add logging and analytics.
-- Experiment with memory window size in chat_memory.py.
+- **Hardware**: Runs on CPU by default  
 
 ---
 
-Feel free to explore and customize this project to build your ideal chatbot!
 
----
+## License
 
-# License
-
-This project uses publicly available models and libraries under their respective licenses.
-" > README.md
+This project relies on **publicly available models and libraries** under their respective licenses.  
